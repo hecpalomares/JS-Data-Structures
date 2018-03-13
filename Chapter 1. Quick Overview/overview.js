@@ -104,3 +104,61 @@ function sum(a = 1, b = 2, c = 3) {
 console.log(sum());						// Default parameters
 console.log(sum(10, 0, 15)); 	// Overriding some of the default parameters
 console.log(sum(4, 5, 6));		// Overriding the all default parameters
+
+/*Spread and Rest operators*/
+// ES6 contains the spread operator, turns array into parameters
+let arrayParams = [8, 2, 12];
+console.log(sum.apply(undefined, arrayParams));		// ES5 method
+console.log(sum(...arrayParams));									// Es6 method, spread operator (...)
+
+// Spread operator can replace arguments using at the rest parameter to gather the rest of the elements not declared as a parameter
+function restParameterFunction(a, b, ...rest) {
+	let sumRestParameter = rest.reduce((a, b) => a + b, 0);
+	
+	console.log(`Returning (a:${a} * b:${b}) + rest:${sumRestParameter}`);
+	
+	return ((a * b) + sumRestParameter);
+}
+
+console.log(restParameterFunction(2, 3, 1, 2, 3, 4, 5));
+
+
+function restParameterFunctionOld(a, b) {
+	// from parameter 'arguments' start at the position 2
+	let rest = Array.prototype.slice.call(arguments, 2);
+	let sumRestParameter = rest.reduce((a, b) => a + b, 0);
+	
+	console.log(`Returning (a:${a} * b:${b}) + rest:${sumRestParameter}`);
+	
+	return ((a * b) + sumRestParameter);
+}
+
+console.log(restParameterFunctionOld(2, 3, 1, 2, 3, 4, 5));
+
+/*Enhanced object properties*/
+
+// Array destructuring: initializing varaibles all at once
+let [j, k, l] = ["1", "2", "3"];
+console.log(`j:${j}, ${k}:k, l:${l}`);		// j:1, 2:k, l:3
+
+// Array destructuring, useful to swap values without the need to create temp variables
+[j, k] = [k, j];
+console.log(`j:${j}, k:${k}`);						// j:2, 1:k
+
+// Sorting algorithms use swap variables often, this is common.
+
+// Object property shorthand:
+let objectDestrucuted = {j, k, l};
+console.log(objectDestrucuted);						// { j: '2', k: '1', l: '3' }
+
+// Method property, allows declare functions inside objects as if they were properties.
+let rubiksCube = {
+	solved: false,
+	spinning() {
+		console.log("I'm spinning!");
+		return '';
+	},
+	sides: 6
+}
+
+console.log(rubiksCube.spinning());
