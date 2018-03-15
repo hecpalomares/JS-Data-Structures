@@ -162,3 +162,104 @@ let rubiksCube = {
 }
 
 console.log(rubiksCube.spinning());
+
+/*Object-oriented programming with classes */
+
+// Declared with keyword 'class'
+class Team {
+
+	// Parameters set with 'new' keyword are set at the constructor function
+	constructor(name, players, mainColors) {
+		this.name = name;
+		this.players = players;
+		this.mainColors = mainColors;
+	}
+
+	// Public functions usable by the Class
+	getPlayers() {
+		return this.players;
+	}
+
+	getName() {
+		return this.name;
+	}
+
+	getMainColors() {
+		return this.mainColors;
+	}
+}
+
+let monterrey = new Team("Monterrey F.C", ["Dorlan", "Aviles", "Funes"], ["White", "Navy Blue"]);
+
+console.log(monterrey.getPlayers());	// ["Dorlan", "Aviles", "Funes"]
+
+/* Inheritance */
+
+// Extends another class with keyword 'extends'
+class NFLTeam extends Team {
+	
+	// Refer to constructor superclass with super(param1, param2, param3)
+	constructor(name, players, mainColors, division) {
+		super(name, players, mainColors);
+		this.division = division;
+	}
+
+	getDivisionRivals() {
+		let rivals = [];
+
+		if(this.name === "Colts") {
+			rivals = ["Texans", "Jaguars", "Titans"];
+		} else if (this.name === "Cowboys") {
+			rivals = ["Giants", "Redskins", "Eagles"];
+		} else {
+			rivals = ["Sorry no rivals found for this team"];
+		}
+
+		return rivals;
+	}
+}
+
+let indyColts = new NFLTeam("Colts", ["Andrew Luck", "T.Y Hilton"], ["Navy Blue", "White"], "South AFC");
+let dallasCowboys = new NFLTeam("Cowboys", ["Ezekiel Elliot", "Dak Prescott"], ["Royal Blue", "Grey"], "East NFC");
+
+console.log(indyColts.getDivisionRivals());
+console.log(dallasCowboys.getDivisionRivals());
+
+// Note: All this classes and inheritance of Javascript at the end compiles to prototype chain
+
+/* Getters and Setters */
+
+class Player {
+	constructor (name) {
+		this._name = name;
+	}
+
+	// use keyword 'get' to expose and use
+	get name() {
+		return this._name;
+	}
+
+	// use keyword 'name' to expose and use
+	set name(value) {
+		this._name = value;
+	}
+
+	rating() {
+		let rating;
+
+		if(this._name === "Zidane") {
+			rating = 10;
+		} else {
+			rating = 7;
+		}
+		return rating;
+	}
+}
+
+let francePlayer = new Player("Zidane");
+console.log(francePlayer._name);		// Zidane, accessing the variable directly
+console.log(francePlayer.name);			// Zidane, accessing the variable through a getter
+console.log(francePlayer.rating());	// 10
+
+francePlayer.name = "Benzema";			// Modifying the variable name with a setter
+console.log(francePlayer.rating());	// 7
