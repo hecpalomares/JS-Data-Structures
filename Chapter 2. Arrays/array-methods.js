@@ -40,11 +40,34 @@ for(let num of numbersArr) {
 	// console.log(num * 3);
 }
 
-// new ES6 iterator
+// ES6 iterator
 let iterator = numbersArr[Symbol.iterator]();	// access toe Symbol.iterator property of the array
 console.log(iterator.next().value);	// 1
 console.log(iterator.next().value);	// 2
 console.log(iterator.next().value); // 3
 console.log(iterator.next().value); // 4
 
-// Call individually the next() method, to retrieve the next value until it returns undefined (done: true).
+// Call individually the next() method, to retrieve the next value until it returns undefined (done: true)
+
+// .from(): Create a new array from a existing one
+let newArray = Array.from(numbers);
+console.log(newArray);
+
+// .of(): Create a new array from comma separated arguments
+let numbersSeparated = Array.of(1, 1, 2, 3, 5, 8);
+console.log(numbersSeparated);
+
+// .fill(): Fill an array with the value. Great to create an array and intialize the values at the same time
+let arrayOfTwos = numbersSeparated.fill(2);
+console.log(arrayOfTwos);
+
+// .sort(): Sorting elements on an array
+// .reverse(): Reverse the elements of an array. Sorted lexicography, assumes all the elements are strings.
+let numbersArrReversed = numbersArr.reverse();
+let numDupReversedLexicalSort = numbersDuplicated.sort();
+
+console.log(numbersArrReversed);	// [ 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
+console.log(numDupReversedLexicalSort); // [ 10, 12, 14, 16, 18, 2, 20, 22, 24, 26, 28, 30, 4, 6, 8 ]
+
+let numDupSorted = numDupReversedLexicalSort.sort((a, b) => { return a - b });
+console.log(numDupSorted); // [ 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30 ]
