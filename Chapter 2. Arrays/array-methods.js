@@ -1,4 +1,4 @@
-/* Join multiple arrays */
+/* Joining multiple arrays */
 let zero = 0;
 let posNum = [1, 2, 3];
 let negNum = [-1, -2, -3];
@@ -8,7 +8,7 @@ let numbers = negNum.concat(zero, posNum);
 // [ -1, -2, -3, 0, 1, 2, 3 ]
 // .concat method concatenate as multiple arguments are passed to the method. Returns a copy to the declared variable.
 
-/*Iterator Functions*/
+/* Iterator Functions */
 let numbersArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 let isAllArrayEven = numbersArr.every(num => num % 2 === 0);		// false, iterate every element of the array until the return of the function is false
@@ -71,3 +71,36 @@ console.log(numDupReversedLexicalSort); // [ 10, 12, 14, 16, 18, 2, 20, 22, 24, 
 
 let numDupSorted = numDupReversedLexicalSort.sort((a, b) => { return a - b });
 console.log(numDupSorted); // [ 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30 ]
+
+/* Searching */
+let randomNumbers = [12, 32, 67, 22, 45, 8, 94, 67, 72, 10, 25];
+
+// indexOf(): returns the index for the first element that matches the argument passed
+randomNumbers.indexOf(22); //  2, index position of the randomNumbers
+randomNumbers.indexOf(15); // -1, element don't exist on the array
+
+// lastIndexOf(): returns the index for the last element that matches the argument passed
+randomNumbers.lastIndexOf(67);	//  7, index position of the randomNumbers
+randomNumbers.lastIndexOf(2);	  // -1, element don't exist on the array
+
+function multipleOf5(element, index, array) {
+	return (element % 5 === 0) ? true : false;
+}
+
+// [ES6] find(): return the first value of the array that statifies the proposed condition. Receives a callback funciton.
+randomNumbers.find(multipleOf5);				// 45
+
+// [ES6] findIndex(): return the index of the first value that satifies the condition. Receives a callback funciton.
+randomNumbers.findIndex(multipleOf5);	// 3
+
+// [ES7] includes(): returns a boolean if it finds the element on the array
+randomNumbers.includes(94);	// true
+randomNumbers.includes(7); 	// false
+
+/* Outputting the array into a string */
+
+// toString(): output all the elements of the array into a single string
+randomNumbers.toString(); // 12,32,67,22,45,8,94,67,72,10,25
+
+// join(): sepearte the elements by a differnet separator
+console.log(randomNumbers.join("-"));	// 12-32-67-22-45-8-94-67-72-10-25
