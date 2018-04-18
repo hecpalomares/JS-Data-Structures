@@ -144,6 +144,11 @@ let StackWeakMap = (function() {
 			let stack = items.get(this);
 			console.log(stack.toString());
 		}
+
+		isEmpty() {
+			let stack = items.get(this);
+			return stack.length === 0;
+		}
 	}
 
 	return Stack;	// When the constructor of the Stack function is called, return the instance of the 'Stack' class
@@ -157,3 +162,32 @@ stackWeakMap.push(2);
 stackWeakMap.push();
 
 stackWeakMap.print();							// 2, 7
+
+// Stacks Examples
+// Base converter algorithm
+
+function baseConverter (decNumber, base) {
+	let remainingStack = new StackWeakMap();
+	let remaining;
+	let baseString = '';
+	let digits = '0123456789ABCDEF';
+
+	while (decNumber > 0) {														// While the division result is not zero
+		remaining = Math.floor(decNumber % base);				// Get remainder of the division (mod)
+		remainingStack.push(remaining);									// Push the remainder to the stack
+		decNumber = Math.floor(decNumber / base);				// Update the number that is divided by the base (2, 8, 16)
+	}
+
+	// Math.Floor is used to obtain the integer value of the division
+
+	while (!remainingStack.isEmpty()) {								// Pop the elements from the stack until it is empty
+			baseString += digits[remainingStack.pop()];		// Concante the elements that were removed from the stack into a string line
+	}
+
+	return baseString;
+
+}
+
+console.log(baseConverter(1233, 2));
+console.log(baseConverter(1233, 8));
+console.log(baseConverter(1233, 16));
