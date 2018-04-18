@@ -3,6 +3,12 @@
 *  near the 'base'.
 */
 
+/*
+Examples:
+Real Life: pile of books, deck of cards
+Computer Science: computer memory to store variables and method calls
+*/
+
 // ES5 Stacks
 function Stack() {
 	// data structure to store the items
