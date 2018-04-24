@@ -147,3 +147,26 @@ priorityQueue.enqueue("Bob", 1);
 priorityQueue.enqueue("Camila", 1);
 
 priorityQueue.print();	// Bob - 1, Camila - 1, Alice - 2
+
+// Circular Queue as a Hot Potato Game implementation
+function hotPotato (nameList) {
+	let queue = new Queue();																					// Declare a new queue
+	let num = Math.floor(Math.random() * (nameList.length - 1)) + 1;	// Obtain a random number
+	let eliminated = '';
+
+	nameList.map(name => queue.enqueue(name));
+
+	while(queue.size() > 1) {
+		for(let i = 0; i < num; i++) {
+			queue.enqueue(queue.dequeue());																// Remove an item from the beginning of the queue and add it to the end
+		}
+		eliminated = queue.dequeue();																		// Once we reach the number the person that has the hot potato is eliminated (removed from queue line)
+		console.log(`${eliminated} was eliminated from the game`);
+	}
+
+	return queue.dequeue();																						// Return when only only one person is left
+}
+
+let names = ["Alice", "Bob", "Camila", "David", "Elliot"];
+let winner = hotPotato(names);
+console.log(`The winner is: ${winner}`);

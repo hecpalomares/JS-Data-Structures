@@ -24,6 +24,8 @@ function Stack() {
 		return items.pop();
 	};
 
+	/*  Note: push and pop methods achieve the LIFO principle (last input, first output) */
+
 	// peeking element from top of the stack, know the last item added with out removing them from the stack
 	this.peek = function() {
 		return items[items.length - 1];
