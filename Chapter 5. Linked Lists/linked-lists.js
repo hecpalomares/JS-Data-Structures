@@ -34,10 +34,57 @@ function LinkedList() {
 	};
 
 	// Inserts a new item at a specified position
-	this.insert = function(position, element) {};
+	this.insert = function(position, element) {
+		if(position > -1 && position < length) {	// position is valid?
+
+			let node = new Node(element);
+			let current = head;
+			let previous;
+			let index = 0;
+
+			if(position === 0) {			// add on first position
+				node.next = current;		// point the next of the created node element to current head
+				head = node;						// point head to be the created node
+			} else {									// add in another position
+				while(index++ < position) {	
+					previous = current;
+					current = current.next;
+				}
+				node.next = current;		// make a link between new item (node) and current item
+				previous.next = node;		// point previous.next to node
+			}
+			length++;
+			return true;
+		} else {
+			return false;	// if item is out of bounds return false to indicate no item was added to the list.
+		}
+	};
 
 	// Removes an item from a specified position in the list
-	this.removeAt = function(position) {};
+	this.removeAt = function(position) {
+		if(position > -1 && position < length) {	// position is valid
+			let current = head;											// reference to the first element of the list
+			let previous;
+			let index = 0;
+
+			if(position === 0) {										// point the head of the linkedlist to current.next element (removing the first element)
+				head = current.next;
+			} else {
+				while (index++ < position) {					// iterate until we reach the desired position
+					previous = current;									// reference to the element that comes before the current element
+					current = current.next;							// current variable always make a reference to the current element of the list we are looping through
+
+					// link previous with current
+					previous.next = current.next;				// to remove the current element from the list, link previous.next to the current.next (element will be lost in memory)
+				}
+				length--;
+
+				return current.element;
+			}
+		} else {
+			return null;
+		}
+	};
 
 	// Removes an item from the list
 	this.remove = function(element) {};
@@ -58,3 +105,7 @@ function LinkedList() {
 let list = new LinkedList();
 list.append(15);
 list.append(9);
+list.append(2);
+list.append(4);
+
+list.remove(2);
