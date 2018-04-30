@@ -86,11 +86,27 @@ function LinkedList() {
 		}
 	};
 
-	// Removes an item from the list
-	this.remove = function(element) {};
+	// Removes an item from the list, (reusing code)
+	this.remove = function(element) {
+		let index = this.indexOf(element);	// find the position of the element using the method indexOf
+		return this.removeAt(index);				// removes an item from the position of the index from the previous line
+	};
 
 	// Returns the index of the element in the list. If the element is not found, return a -1
-	this.indexOf = function(element) {};
+	this.indexOf = function(element) {
+		let current = head;				// variable pointing to the first element of the list to help iterate
+		let index = 0;
+
+		while(current) {					// iterate through each element of the list
+			if(element === current.element) {	// compare element parameter and the current element iterated
+				return index;					// if they are the same, returns the position of it
+			}
+			index++;								// continue moving index positions
+			current = current.next;	// move to the next element
+		}
+
+		return -1;
+	};
 	
 	// Returns true if the linked list does not contain elements. Return false if at least one element
 	this.isEmpty = function() {};
@@ -99,13 +115,29 @@ function LinkedList() {
 	this.size = function() {};
 
 	// Output only the element values
-	this.toString = function() {};
+	this.toString = function() {
+		let current = head;					// variable to pointing to the first element of the list to help iterate
+		let string = '';						// variable that will concatenate the element values
+
+		while(current) {						// iterate through each element of the list
+			string += "Node = " + current.element + " " + (current.next ? "next " : "null");	
+			current = current.next;		// iterate to the next element
+		} 
+		return string;
+	};
 }
 
 let list = new LinkedList();
-list.append(15);
-list.append(9);
-list.append(2);
-list.append(4);
+list.append("Jim");
+list.append("Peyton");
+list.append("Andrew");
+list.append("Jacoby");
 
-list.remove(2);
+console.log(list.toString());					// Node = Jim next Node = Peyton next Node = Andrew next Node = Jacoby null
+console.log(list.indexOf("Andrew"));	// 2
+console.log(list.indexOf("Tom")); 		// -1
+
+list.remove("Andrew");
+
+console.log(list.toString());					// Node = Jim next Node = Andrew next Node = Jacoby null
+
