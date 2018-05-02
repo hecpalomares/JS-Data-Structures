@@ -2,6 +2,7 @@
 ** elements of the linked list are called nodes. A node consists of the item (value) itself and a reference (pointer or link) that point to the next element.
 */
 
+// Has a single pointer, pointing to the 'next' element
 function LinkedList() {
 
 	// Represents the item that we are adding the list. Contains an element (value) attribute and next attribute (pointer) containing the link to the next element.
@@ -109,10 +110,14 @@ function LinkedList() {
 	};
 	
 	// Returns true if the linked list does not contain elements. Return false if at least one element
-	this.isEmpty = function() {};
+	this.isEmpty = function() {
+		return length === 0;
+	};
 
 	// Returns the number of elements the linekd list contains.
-	this.size = function() {};
+	this.size = function() {
+		return length;
+	};
 
 	// Output only the element values
 	this.toString = function() {
@@ -124,6 +129,11 @@ function LinkedList() {
 			current = current.next;		// iterate to the next element
 		} 
 		return string;
+	};
+
+	this.getHead = function() {
+		let current = head;
+		return current.element;
 	};
 }
 
@@ -141,3 +151,60 @@ list.remove("Andrew");
 
 console.log(list.toString());					// Node = Jim next Node = Andrew next Node = Jacoby null
 
+console.log(list.getHead());					// Jim
+console.log(list.isEmpty());					// false
+console.log(list.size());							// 3
+
+// Has two pointers, pointing to the 'next' element and the 'prev' element
+function DoublyLinkedList() {
+	let Node = function(element) {
+		this.element = element;
+		this.next = null;
+		this.prev = null;		// NEW
+	};
+
+	let length = 0;
+	let head = null;
+	let tail = null;			// NEW
+
+	// insert a new element at any position
+	this.insert = function(position, element) {
+
+	if(position >= 0 && position <= length) {
+		let node = new Node(element);
+		let current = head;
+		let previous;
+		let index = 0;
+	
+		if(position === 0) {			// add on first position
+			if(!head) {								// head is null, the list is empty
+				head = node;								// move head of DLL to node
+				tail = node;								// move tail of DLL to node
+			} else {									// head is not null, the list is not empty
+				node.next = current;				// node.next (recently created node), points to the current (head line 175)
+				current.prev = node;				// current.prev, points to the node(recently created node) instead of null
+				head = node;								// move the head of the DLL to (recently created node)
+			}
+		} else if(position === length) {		// add on lat position
+			current = tail;
+			current.next = node;
+			node.prev = current;
+			tail = node;
+		} else {
+			while(index++ < position) {
+				previous = current;
+				current = current.next;
+			}
+			node.next = current;
+			previous.next = node;
+			current.prev = previous;
+			node.prev = previous
+		}
+		length++;
+
+		return true;
+	} else {
+		return false
+	}
+
+}
