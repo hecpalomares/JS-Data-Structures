@@ -125,7 +125,7 @@ function LinkedList() {
 		let string = '';						// variable that will concatenate the element values
 
 		while(current) {						// iterate through each element of the list
-			string += "Node = " + current.element + " " + (current.next ? "next " : "null");	
+			string += "[Node=" + current.element + "]" + (current.next ? "->" : " null");		
 			current = current.next;		// iterate to the next element
 		} 
 		return string;
@@ -154,57 +154,3 @@ console.log(list.toString());					// Node = Jim next Node = Andrew next Node = J
 console.log(list.getHead());					// Jim
 console.log(list.isEmpty());					// false
 console.log(list.size());							// 3
-
-// Has two pointers, pointing to the 'next' element and the 'prev' element
-function DoublyLinkedList() {
-	let Node = function(element) {
-		this.element = element;
-		this.next = null;
-		this.prev = null;		// NEW
-	};
-
-	let length = 0;
-	let head = null;
-	let tail = null;			// NEW
-
-	// insert a new element at any position
-	this.insert = function(position, element) {
-
-	if(position >= 0 && position <= length) {
-		let node = new Node(element);
-		let current = head;
-		let previous;
-		let index = 0;
-	
-		if(position === 0) {			// add on first position
-			if(!head) {								// head is null, the list is empty
-				head = node;								// move head of DLL to node
-				tail = node;								// move tail of DLL to node
-			} else {									// head is not null, the list is not empty
-				node.next = current;				// node.next (recently created node), points to the current (head line 175)
-				current.prev = node;				// current.prev, points to the node(recently created node) instead of null
-				head = node;								// move the head of the DLL to (recently created node)
-			}
-		} else if(position === length) {		// add on lat position
-			current = tail;
-			current.next = node;
-			node.prev = current;
-			tail = node;
-		} else {
-			while(index++ < position) {
-				previous = current;
-				current = current.next;
-			}
-			node.next = current;
-			previous.next = node;
-			current.prev = previous;
-			node.prev = previous
-		}
-		length++;
-
-		return true;
-	} else {
-		return false
-	}
-
-}
