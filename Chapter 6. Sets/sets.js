@@ -72,7 +72,7 @@ function Set() {
 			}
 		}
 		return values;
-	}
+	};
 
 	// union of Sets: given two Sets, this returns a new Set with the elements from both given Sets
 	this.union = function(otherSet) {
@@ -87,7 +87,6 @@ function Set() {
 		for(let i = 0; i < values.length ; i++) {
 			unionSet.add(values[i]);
 		}
-
 		return unionSet;
 	};
 
@@ -98,16 +97,43 @@ function Set() {
 
 		for(let i = 0; i < values.length; i++) {		// iterate through all the values of the current instance of the Set class
 			if(otherSet.has(values[i])) {							// if the value exists in the otherSet instance
-				intersectionSet.add(values[i]);					// add the value to the intersection instance
+				intersectionSet.add(values[i]);					// add the value to the intersection Set instance
 			}
 		}
-
 		return intersectionSet;
-	}
+	};
+
+	// difference of Sets: given two Sets, this returns a new Set that exist in the first Set and do not in the exist in the second Set
+	this.difference = function(otherSet) {
+		let differenceSet = new Set();							// new Set instance that will return the difference of both Sets
+		let values = this.values();
+
+		for(let i = 0; i < values.length; i++) {		// iterate through all the values of the current instance of the Set class
+			if(!otherSet.has(values[i])) {						// if the value DO NOT exists in the otherSet instance
+				differenceSet.add(values[i]);						// add the value to the difference Set instance
+			}
+		}
+		return differenceSet;
+	};
+
+	// subset: confirms wherter a given set is a subset of another set
+	this.subset = function(otherSet) {
+		if(this.size() > otherSet.size()) {					// if the current instance of the Set is bigger it is not a subset
+			return false;
+		} else {
+			let values = this.values();					
+			for(let i = 0; i < values.length; i++) {	// iterate through all the set elements
+				if(!otherSet.has(values[i])) {					// verify that the element also exist in the other set
+					return false;													// if the element doesn't exist in the other set return false
+				}
+			}
+			return true;															// if all elements exist in the other set, line 127 is not executed. so it returns true.
+		}
+	};
+
 }
 
 // --- Create a Set --- //
-
 let set = new Set();
 
 set.add("a");
@@ -124,7 +150,6 @@ set.remove("b");
 console.log(set.values());		// [ 'a', 'c' ]
 
 // --- Set Methods --- //
-
 let setA = new Set();
 setA.add("a");
 setA.add("b");
@@ -137,8 +162,32 @@ setB.add("e");
 
 // --- Union --- //
 let unionAB = setA.union(setB);
-console.log(unionAB.values());	// [ 'a', 'b', 'e', 'c' ]
+console.log(unionAB.values());				// [ 'a', 'b', 'e', 'c' ]
 
 // --- Intersection --- //
 let intersectionAB = setA.intersection(setB);
 console.log(intersectionAB.values());	// [ 'b', 'e' ]
+
+// --- Difference --- //
+let differenceAB = setA.difference(setB);
+console.log(differenceAB.values());		// [ 'a' ]
+
+// --- Subset --- //
+let setC = new Set();
+setC.add("X");
+setC.add("Y");
+
+let setD = new Set();
+setD.add("W");
+setD.add("X");
+setD.add("Y");
+setD.add("Z");
+
+let setE = new Set();
+setE.add("W");
+setE.add("V");
+setE.add("Y");
+setE.add("Z");
+
+console.log(setC.subset(setD));	// true
+console.log(setC.subset(setE));	// false, missing Y
